@@ -1,5 +1,5 @@
 /* ============================================================
-   Airmind Estate — Démo Monbel
+   Airmind Estate — Démo Projet Eiffel (Isambert)
    Script principal : sliders avant/après + petits utilitaires
    ============================================================ */
 
@@ -101,6 +101,16 @@
     const imgBefore = slider.querySelector(".img-before");
 
     if (!handle || !imgBefore) return;
+
+    /* Le bouton « agrandir » est superposé à l'intérieur du slider :
+       on empêche son pointerdown de déclencher un drag. Le clic, lui,
+       continue de remonter jusqu'au handler délégué qui ouvre le zoom. */
+    const expandBtn = slider.querySelector(".room-expand");
+    if (expandBtn) {
+      ["pointerdown", "mousedown", "touchstart"].forEach(function (ev) {
+        expandBtn.addEventListener(ev, function (e) { e.stopPropagation(); });
+      });
+    }
 
     let dragging = false;
     let rect = null;

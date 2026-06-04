@@ -3,26 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Isambert - Projet Monbel</title>
-  <meta name="description" content="Visualisation virtuelle du bien : 5 pièces aménagées et 2 vidéos immersives pour la mise en marché." />
+  <title>Isambert — Projet Eiffel</title>
+  <meta name="description" content="Visualisation virtuelle du bien : visite immersive et 21 pièces libérées de leur mobilier par IA — 7 avenue Émile Deschanel, 75007 Paris." />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Isambert" />
-  <meta property="og:title" content="Isambert - Projet Monbel" />
-  <meta property="og:description" content="Visualisation virtuelle du bien : 5 pièces aménagées et 2 vidéos immersives pour la mise en marché." />
-  <meta property="og:image" content="assets/monbel-salon-after.jpg" />
+  <meta property="og:title" content="Isambert — Projet Eiffel" />
+  <meta property="og:description" content="Visualisation virtuelle du bien : visite immersive et 21 pièces libérées de leur mobilier par IA — 7 avenue Émile Deschanel, 75007 Paris." />
+  <meta property="og:image" content="assets/eiffel-01-before.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Favicon (logo Monbel) -->
-  <link rel="icon" type="image/png" href="assets/monbel-logo.png?v=1" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png?v=2" />
 
   <!-- Google Fonts : Cormorant Garamond (titres) + Inter (corps) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=24" />
+  <link rel="stylesheet" href="style.css?v=27" />
 </head>
 <body>
 
@@ -31,16 +31,54 @@
        ============================================================ -->
   <header class="site-header">
     <div class="container header-inner">
-      <a href="#" class="brand" aria-label="Projet Monbel — Accueil">
-        <img src="assets/monbel-logo.png?v=1" alt="" class="brand-logo" />
-        <span class="brand-name">Projet Monbel</span>
+      <a href="#" class="brand" aria-label="Projet Eiffel — Accueil">
+        <img src="assets/logo.png?v=2" alt="" class="brand-logo" />
+        <span class="brand-name">Projet Eiffel</span>
       </a>
       <nav class="site-nav" aria-label="Navigation principale">
+        <a href="#videos">Visite</a>
         <a href="#demonstration">Démonstration</a>
-        <a href="#videos">Vidéos</a>
       </nav>
     </div>
   </header>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Projet Eiffel — Mise en valeur virtuelle</p>
+      <h1 class="hero-title">Un appartement au pied de la <em>Tour Eiffel</em></h1>
+      <p class="hero-sub">
+        7 avenue Émile Deschanel, 75007 Paris — une visite immersive du bien, puis chaque pièce libérée de son mobilier par IA pour en révéler les volumes.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VISITE — Vidéo immersive
+       ============================================================ -->
+  <section id="videos" class="section section-alt">
+    <div class="container">
+      <div class="video-solo">
+
+        <header class="section-head">
+          <h2 class="section-title">Visite immersive</h2>
+          <p class="section-intro">
+            Une déambulation dans le bien : volumes, lumière et vue dégagée sur la Tour Eiffel — prête à intégrer dans l'annonce et sur les réseaux.
+          </p>
+        </header>
+
+        <div class="video-frame">
+          <video controls preload="metadata" poster="assets/eiffel-visite-poster.jpg" playsinline>
+            <source src="assets/eiffel-visite.mp4" type="video/mp4" />
+            Votre navigateur ne prend pas en charge la lecture vidéo HTML5.
+          </video>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <!-- ============================================================
        DÉMONSTRATION — Sliders avant / après
@@ -51,30 +89,16 @@
       <header class="section-head">
         <h2 class="section-title">Avant <span class="slash">/</span> Après</h2>
         <p class="section-intro">
-          Cinq pièces du bien aménagées virtuellement à partir des photos d'origine. Faites glisser le curseur pour révéler la transformation, ou cliquez sur l'icône pour agrandir chaque pièce.
+          Chaque pièce du bien, libérée de son mobilier virtuellement à partir des photos d'origine. Faites glisser le curseur pour comparer, ou cliquez sur l'icône pour agrandir.
         </p>
       </header>
 
       <div class="rooms-grid">
 
-        <!-- Pièce 1 — Salon -->
         <article class="room">
-          <header class="room-head">
-            <p class="room-index">Pièce 01</p>
-            <h3 class="room-title">Salon</h3>
-            <button type="button" class="room-expand" aria-label="Agrandir le slider Salon">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <polyline points="9 21 3 21 3 15"></polyline>
-                <line x1="21" y1="3" x2="14" y2="10"></line>
-                <line x1="3" y1="21" x2="10" y2="14"></line>
-              </svg>
-            </button>
-          </header>
-
           <div class="comparison-slider" data-comparison>
-            <img class="img-after" src="assets/monbel-salon-after.jpg" alt="Salon — après mise en valeur" />
-            <img class="img-before" src="assets/monbel-salon-before.jpg" alt="Salon — état initial" style="clip-path: inset(0 50% 0 0);" />
+            <img class="img-after" src="assets/eiffel-01-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-01-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
             <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
               <span class="handle-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -85,31 +109,25 @@
             </div>
             <span class="label label-before">Avant</span>
             <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
           </div>
 
           <p class="room-caption">
-            Mobilier, lumière et matières installés virtuellement — la pièce vide devient un espace de réception habitable, lisible pour l'acquéreur.
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
           </p>
         </article>
 
-        <!-- Pièce 2 — Salle à manger -->
         <article class="room">
-          <header class="room-head">
-            <p class="room-index">Pièce 02</p>
-            <h3 class="room-title">Salle à manger</h3>
-            <button type="button" class="room-expand" aria-label="Agrandir le slider Salle à manger">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <polyline points="9 21 3 21 3 15"></polyline>
-                <line x1="21" y1="3" x2="14" y2="10"></line>
-                <line x1="3" y1="21" x2="10" y2="14"></line>
-              </svg>
-            </button>
-          </header>
-
           <div class="comparison-slider" data-comparison>
-            <img class="img-after" src="assets/monbel-sam-after.jpg" alt="Salle à manger — après mise en valeur" />
-            <img class="img-before" src="assets/monbel-sam-before.jpg" alt="Salle à manger — état initial" style="clip-path: inset(0 50% 0 0);" />
+            <img class="img-after" src="assets/eiffel-02-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-02-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
             <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
               <span class="handle-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -120,31 +138,25 @@
             </div>
             <span class="label label-before">Avant</span>
             <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
           </div>
 
           <p class="room-caption">
-            Grande table conviviale, suspension épurée, ouverture sur le salon — la circulation entre les pièces de vie reprend son sens.
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
           </p>
         </article>
 
-        <!-- Pièce 3 — Cuisine -->
         <article class="room">
-          <header class="room-head">
-            <p class="room-index">Pièce 03</p>
-            <h3 class="room-title">Cuisine</h3>
-            <button type="button" class="room-expand" aria-label="Agrandir le slider Cuisine">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <polyline points="9 21 3 21 3 15"></polyline>
-                <line x1="21" y1="3" x2="14" y2="10"></line>
-                <line x1="3" y1="21" x2="10" y2="14"></line>
-              </svg>
-            </button>
-          </header>
-
           <div class="comparison-slider" data-comparison>
-            <img class="img-after" src="assets/monbel-cuisine-after.jpg" alt="Cuisine — après mise en valeur" />
-            <img class="img-before" src="assets/monbel-cuisine-before.jpg" alt="Cuisine — état initial" style="clip-path: inset(0 50% 0 0);" />
+            <img class="img-after" src="assets/eiffel-03-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-03-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
             <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
               <span class="handle-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -155,31 +167,25 @@
             </div>
             <span class="label label-before">Avant</span>
             <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
           </div>
 
           <p class="room-caption">
-            Électroménager, herbes fraîches, ustensiles : la cuisine fonctionnelle se transforme en pièce de vie chaleureuse — sans aucune intervention physique.
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
           </p>
         </article>
 
-        <!-- Pièce 4 — Chambre 1 -->
         <article class="room">
-          <header class="room-head">
-            <p class="room-index">Pièce 04</p>
-            <h3 class="room-title">Chambre principale</h3>
-            <button type="button" class="room-expand" aria-label="Agrandir le slider Chambre principale">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <polyline points="9 21 3 21 3 15"></polyline>
-                <line x1="21" y1="3" x2="14" y2="10"></line>
-                <line x1="3" y1="21" x2="10" y2="14"></line>
-              </svg>
-            </button>
-          </header>
-
           <div class="comparison-slider" data-comparison>
-            <img class="img-after" src="assets/monbel-chambre1-after.jpg?v=4" alt="Chambre principale — après mise en valeur" />
-            <img class="img-before" src="assets/monbel-chambre1-before.jpg?v=4" alt="Chambre principale — état initial" style="clip-path: inset(0 50% 0 0);" />
+            <img class="img-after" src="assets/eiffel-04-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-04-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
             <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
               <span class="handle-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -190,31 +196,25 @@
             </div>
             <span class="label label-before">Avant</span>
             <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
           </div>
 
           <p class="room-caption">
-            Lit en bois clair, banc et linge naturel — la chambre principale gagne en sérénité, mise en valeur par la cheminée marbre et la baie en bow-window.
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
           </p>
         </article>
 
-        <!-- Pièce 5 — Chambre 2 -->
         <article class="room">
-          <header class="room-head">
-            <p class="room-index">Pièce 05</p>
-            <h3 class="room-title">Seconde chambre</h3>
-            <button type="button" class="room-expand" aria-label="Agrandir le slider Seconde chambre">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <polyline points="9 21 3 21 3 15"></polyline>
-                <line x1="21" y1="3" x2="14" y2="10"></line>
-                <line x1="3" y1="21" x2="10" y2="14"></line>
-              </svg>
-            </button>
-          </header>
-
           <div class="comparison-slider" data-comparison>
-            <img class="img-after" src="assets/monbel-chambre2-after.jpg?v=3" alt="Seconde chambre — après mise en valeur" />
-            <img class="img-before" src="assets/monbel-chambre2-before.jpg?v=3" alt="Seconde chambre — état initial" style="clip-path: inset(0 50% 0 0);" />
+            <img class="img-after" src="assets/eiffel-05-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-05-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
             <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
               <span class="handle-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -225,56 +225,483 @@
             </div>
             <span class="label label-before">Avant</span>
             <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
           </div>
 
           <p class="room-caption">
-            Tête de lit habillée, plante et rideaux légers — la seconde chambre se projette comme une pièce d'amis ou un bureau, prête à accueillir.
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
           </p>
         </article>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       VIDÉOS
-       ============================================================ -->
-  <section id="videos" class="section section-alt">
-    <div class="container">
-
-      <header class="section-head">
-        <h2 class="section-title">Vidéos immersives</h2>
-        <p class="section-intro">
-          Deux vidéos prolongent la photographie : une déambulation dans le bien d'origine, puis la projection meublée du même parcours — prêtes à intégrer dans l'annonce et sur les réseaux.
-        </p>
-      </header>
-
-      <div class="video-grid">
-
-        <article class="video-card">
-          <h3 class="video-title">Visite — bien d'origine</h3>
-          <p class="video-desc">
-            Déambulation immersive dans le bien tel qu'il est : volumes, lumière et perspectives valorisés pour l'acquéreur.
-          </p>
-          <div class="video-frame">
-            <video controls preload="metadata" poster="assets/monbel-salon-before.jpg" playsinline>
-              <source src="assets/monbel-non-meuble.mp4" type="video/mp4" />
-              Votre navigateur ne prend pas en charge la lecture vidéo HTML5.
-            </video>
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-06-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-06-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
           </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
         </article>
 
-        <article class="video-card">
-          <h3 class="video-title">Visite — projection meublée</h3>
-          <p class="video-desc">
-            Même parcours, aménagé virtuellement : l'acquéreur se projette immédiatement dans son futur quotidien.
-          </p>
-          <div class="video-frame">
-            <video controls preload="metadata" poster="assets/monbel-salon-after.jpg" playsinline>
-              <source src="assets/monbel-meuble.mp4" type="video/mp4" />
-              Votre navigateur ne prend pas en charge la lecture vidéo HTML5.
-            </video>
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-07-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-07-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
           </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-08-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-08-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-09-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-09-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-10-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-10-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-11-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-11-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-12-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-12-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-13-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-13-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-14-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-14-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-15-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-15-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-16-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-16-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-17-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-17-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-18-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-18-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-19-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-19-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-20-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-20-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
+        </article>
+
+        <article class="room">
+          <div class="comparison-slider" data-comparison>
+            <img class="img-after" src="assets/eiffel-21-after.jpg" alt="Après — pièce libérée de son mobilier" loading="lazy" />
+            <img class="img-before" src="assets/eiffel-21-before.jpg" alt="Avant — pièce meublée" style="clip-path: inset(0 50% 0 0);" loading="lazy" />
+            <div class="slider-handle" style="left: 50%;" role="slider" tabindex="0" aria-label="Curseur de comparaison avant/après" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="handle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 6 3 12 9 18"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </span>
+            </div>
+            <span class="label label-before">Avant</span>
+            <span class="label label-after">Après</span>
+            <button type="button" class="room-expand" aria-label="Agrandir cette comparaison">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+            </button>
+          </div>
+
+          <p class="room-caption">
+            Retrait virtuel du mobilier par IA à partir de la photo d'origine — les volumes du bien sont révélés, sans aucune intervention physique.
+          </p>
         </article>
 
       </div>
@@ -318,6 +745,6 @@
     <div class="zoom-host"></div>
   </dialog>
 
-  <script src="script.js?v=15"></script>
+  <script src="script.js?v=17"></script>
 </body>
 </html>
