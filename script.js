@@ -1,5 +1,5 @@
 /* ============================================================
-   Airmind Estate — Démo Projet Eiffel (Isambert)
+   Airmind Creation — Page démo (événement)
    Script principal : module dossier meublé → démeubler → visite
    ============================================================ */
 
@@ -40,6 +40,76 @@
     const tiles = grid ? Array.from(grid.querySelectorAll(".folder-tile")) : [];
     const video = root.querySelector("[data-gen-video]");
     const playerFrame = root.querySelector(".demo-player-frame");
+    const pagePrev = root.querySelector("[data-page-prev]");
+    const pageNext = root.querySelector("[data-page-next]");
+    const pager = root.querySelector("[data-pager]");
+
+    /* ---------- Album paginé + curseur de taille ----------
+       Le curseur règle le nombre de colonnes (3 = grandes photos,
+       7 = tout l'album d'un coup). La pagination suit : 2 rangées
+       par page, ou une page unique quand tout tient à l'écran. */
+    const sizeRange = root.querySelector("[data-size-range]");
+    let pageSize = 6;
+    let pageCount = Math.ceil(tiles.length / pageSize);
+    let page = 0;
+    let dots = [];
+
+    function buildPager() {
+      pageCount = Math.ceil(tiles.length / pageSize);
+      if (page > pageCount - 1) page = pageCount - 1;
+      const single = pageCount <= 1;
+      if (pagePrev) pagePrev.hidden = single;
+      if (pageNext) pageNext.hidden = single;
+      if (!pager) return;
+      pager.hidden = single;
+      pager.innerHTML = "";
+      dots = [];
+      for (let i = 0; i < pageCount; i++) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "pager-dot";
+        dot.setAttribute("aria-label", "Page " + (i + 1) + " sur " + pageCount);
+        dot.addEventListener("click", goToPage.bind(null, i));
+        pager.appendChild(dot);
+        dots.push(dot);
+      }
+    }
+
+    function renderPage(animate) {
+      tiles.forEach(function (tile, i) {
+        tile.hidden = Math.floor(i / pageSize) !== page;
+      });
+      if (pagePrev) pagePrev.disabled = page === 0;
+      if (pageNext) pageNext.disabled = page === pageCount - 1;
+      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === page); });
+      if (animate && !reduceMotion && grid) {
+        grid.classList.remove("is-turning");
+        void grid.offsetWidth; // relance l'animation d'entrée
+        grid.classList.add("is-turning");
+      }
+    }
+
+    function goToPage(p) {
+      const next = Math.max(0, Math.min(pageCount - 1, p));
+      if (next === page) return;
+      page = next;
+      renderPage(true);
+    }
+
+    function applySize() {
+      // curseur à droite (5) = 3 colonnes ; à gauche (1) = 7 colonnes
+      const cols = 8 - (sizeRange ? Number(sizeRange.value) : 5);
+      if (grid) grid.style.setProperty("--cols", cols);
+      pageSize = cols >= 7 ? tiles.length : cols * 2;
+      buildPager();
+      renderPage(true);
+    }
+
+    if (pagePrev) pagePrev.addEventListener("click", function () { goToPage(page - 1); });
+    if (pageNext) pageNext.addEventListener("click", function () { goToPage(page + 1); });
+    if (sizeRange) sizeRange.addEventListener("input", applySize);
+    buildPager();
+    renderPage(false);
 
     const GENERATE_PHASES = [
       "Analyse des volumes…",
@@ -72,11 +142,15 @@
       if (label && progressLabel) progressLabel.textContent = label;
     }
 
-    /* Bascule des vignettes : cascade gauche→droite, ligne par ligne. */
+    /* Bascule des vignettes : cascade sur la page visible, les pages
+       masquées basculent instantanément. */
     function applyDemeuble() {
-      tiles.forEach(function (tile, i) {
+      let visIdx = 0;
+      tiles.forEach(function (tile) {
         const img = tile.querySelector(".tile-demeuble");
-        if (img) img.style.transitionDelay = reduceMotion ? "0ms" : i * 55 + "ms";
+        if (!img) return;
+        if (tile.hidden || reduceMotion) img.style.transitionDelay = "0ms";
+        else img.style.transitionDelay = visIdx++ * 90 + "ms";
       });
       root.classList.add("is-demeuble");
       if (demeubleBtn) demeubleBtn.hidden = true;
@@ -134,11 +208,13 @@
       panelFolder.classList.add("is-active");
       if (resetBtn) resetBtn.hidden = true;
 
-      // retour à l'étape 1 : dossier meublé (la seule source)
+      // retour à l'étape 1 : dossier meublé (la seule source), page 1
       tiles.forEach(function (tile) {
         const img = tile.querySelector(".tile-demeuble");
         if (img) img.style.transitionDelay = "0ms";
       });
+      page = 0;
+      renderPage(false);
       root.classList.remove("is-demeuble");
       if (demeubleBtn) {
         demeubleBtn.hidden = false;
@@ -231,6 +307,94 @@
     const hasSource = video.querySelector("source[src]");
     if (hasSource) frame.classList.add("has-video");
   });
+
+  /* -----------------------------------------------------------
+     Formulaire de demande de démo (relayé vers Brevo via /api/subscribe)
+     ----------------------------------------------------------- */
+  const form = document.getElementById("demoForm");
+  const formSuccess = document.getElementById("formSuccess");
+  if (form) {
+    const emailInput = document.getElementById("email");
+    const prenomInput = document.getElementById("prenom");
+    const nomInput = document.getElementById("nom");
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    function showFormError(msg) {
+      let err = form.querySelector(".form__error");
+      if (!err) {
+        err = document.createElement("p");
+        err.className = "form__error";
+        err.setAttribute("role", "alert");
+        err.style.cssText = "color:#c0392b; margin-top:12px; font-size:14px; line-height:1.4;";
+        form.appendChild(err);
+      }
+      err.textContent = msg;
+    }
+    function clearFormError() {
+      const err = form.querySelector(".form__error");
+      if (err) err.remove();
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim());
+      const valid = prenomInput.value.trim() && nomInput.value.trim() && emailOk;
+      if (!valid) {
+        [prenomInput, nomInput, emailInput].forEach(function (f) {
+          if (!f.value.trim()) f.reportValidity && f.reportValidity();
+        });
+        if (!emailOk) {
+          emailInput.setCustomValidity("Adresse email invalide");
+          emailInput.reportValidity();
+        }
+        return;
+      }
+      emailInput.setCustomValidity("");
+      clearFormError();
+
+      let originalHTML;
+      if (submitBtn) {
+        originalHTML = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.style.cursor = "wait";
+        submitBtn.textContent = "Envoi…";
+      }
+      function restoreBtn() {
+        if (!submitBtn) return;
+        submitBtn.disabled = false;
+        submitBtn.style.cursor = "";
+        if (originalHTML) submitBtn.innerHTML = originalHTML;
+      }
+
+      fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: emailInput.value.trim(),
+          firstname: prenomInput.value.trim(),
+          lastname: nomInput.value.trim(),
+          source: "demo_eiffel",
+        }),
+      }).then(function (res) {
+        if (res.status === 200 || res.status === 409) {
+          form.style.display = "none";
+          const kicker = document.querySelector(".form-kicker");
+          if (kicker) kicker.style.display = "none";
+          if (formSuccess) formSuccess.classList.add("is-on");
+        } else {
+          restoreBtn();
+          showFormError("Une erreur est survenue. Réessayez ou écrivez-nous à contact@airmindcreation.com.");
+        }
+      }).catch(function () {
+        restoreBtn();
+        showFormError("Connexion impossible. Vérifiez votre réseau et réessayez.");
+      });
+    });
+    emailInput.addEventListener("input", function () {
+      this.setCustomValidity("");
+      clearFormError();
+    });
+  }
 
   /* -----------------------------------------------------------
      Smooth scroll explicite pour la nav (au cas où le navigateur

@@ -1,5 +1,5 @@
 /* ============================================================
-   Airmind Estate — Démo Projet Eiffel (Isambert)
+   Airmind Creation — Page démo (événement)
    Feuille de style principale
    ============================================================ */
 
@@ -116,17 +116,9 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 }
 
 .brand-logo {
-  height: 92px;
+  height: 28px;
   width: auto;
   display: block;
-}
-
-.brand-name {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: 1.125rem;
-  letter-spacing: 0.02em;
-  line-height: 1;
 }
 
 .site-nav {
@@ -328,11 +320,111 @@ p { margin: 0 0 1em; text-wrap: pretty; }
   50%      { box-shadow: 0 0 0 9px rgba(201, 168, 118, 0); }
 }
 
-/* Planche-contact : toutes les photos du dossier en quadrillé */
+/* Planche-contact paginée : flèches pour tourner l'album, curseur de taille.
+   Le nombre de colonnes (--cols) est piloté par le curseur « Taille des photos » :
+   3 colonnes = grandes photos paginées, 7 colonnes = tout l'album d'un coup. */
+.folder-reel { position: relative; }
+
 .folder-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--cols, 3), 1fr);
   gap: var(--space-4);
+}
+
+/* Curseur de taille des photos */
+.folder-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.toolbar-label {
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+  margin-right: var(--space-2);
+}
+
+.size-dot {
+  display: inline-block;
+  border: 1px solid var(--color-ink-mute);
+  border-radius: 2px;
+}
+.size-dot-sm { width: 8px; height: 8px; }
+.size-dot-lg { width: 15px; height: 15px; }
+
+.size-range {
+  width: 150px;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.folder-tile[hidden] { display: none; }
+
+/* Fondu des vignettes à chaque changement de page */
+.folder-grid.is-turning .folder-tile:not([hidden]) {
+  animation: page-in 0.35s ease both;
+}
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.folder-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-rule);
+  background: #fff;
+  color: var(--color-ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px -10px rgba(26,26,26,0.35);
+  transition: background var(--transition), color var(--transition), opacity var(--transition), transform var(--transition);
+}
+.folder-arrow:hover,
+.folder-arrow:focus-visible {
+  background: var(--color-ink);
+  color: #fff;
+  outline: none;
+}
+.folder-arrow:disabled { opacity: 0; pointer-events: none; }
+
+.folder-arrow-prev { left: -22px; }
+.folder-arrow-next { right: -22px; }
+
+/* Points de pagination */
+.folder-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: var(--space-6);
+}
+
+.pager-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: var(--color-rule);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+.pager-dot:hover { background: var(--color-accent-soft); }
+.pager-dot.is-active {
+  background: var(--color-accent);
+  transform: scale(1.25);
 }
 
 .folder-tile {
@@ -648,6 +740,137 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 }
 
 /* -----------------------------------------------------------
+   La démo — bandeau contact (page partagée en événement)
+   ----------------------------------------------------------- */
+.cta-section {
+  border-top: 1px solid var(--color-rule);
+}
+
+.cta-block {
+  text-align: center;
+}
+
+.cta-block .section-head {
+  margin-bottom: var(--space-12);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-block .section-intro {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a.cta-btn {
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* -----------------------------------------------------------
+   Hero : intro + formulaire de démo (relayé vers Brevo)
+   ----------------------------------------------------------- */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+.form-card {
+  background: #ffffff;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-8);
+}
+
+.form-kicker {
+  font-size: 0.6875rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+  margin: 0 0 var(--space-6);
+}
+
+.form {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.field label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.field input {
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-rule);
+  border-radius: 0;
+  padding: 0.45em 0;
+  transition: border-color var(--transition);
+}
+
+.field input::placeholder { color: var(--color-ink-mute); }
+.field input:focus { outline: none; border-bottom-color: var(--color-accent); }
+.field input:user-invalid { border-bottom-color: #b3402f; }
+
+.field--row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.form .btn-demo { width: 100%; margin-top: var(--space-2); }
+
+.form__note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--color-ink-mute);
+  text-align: center;
+}
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: var(--space-12) var(--space-6);
+}
+.form-success.is-on { display: block; }
+
+.form-success__check {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto var(--space-6);
+  border-radius: 50%;
+  border: 1px solid var(--color-rule);
+  display: grid;
+  place-items: center;
+  color: var(--color-accent);
+}
+
+.form-success__title {
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  margin: 0 0 var(--space-2);
+}
+
+.form-success__text {
+  margin: 0;
+  color: var(--color-ink-soft);
+}
+
+/* -----------------------------------------------------------
    Footer
    ----------------------------------------------------------- */
 .site-footer {
@@ -716,7 +939,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
   text-align: right;
 }
 
-.footer-meta .confidential {
+.footer-meta .footer-signature {
   color: var(--color-accent);
   font-family: var(--font-serif);
   font-style: italic;
@@ -739,10 +962,12 @@ p { margin: 0 0 1em; text-wrap: pretty; }
   :root { --container-pad: 1.5rem; }
 
   .hero { padding-top: var(--space-12); padding-bottom: var(--space-12); }
+  .hero-grid { grid-template-columns: 1fr; gap: var(--space-12); }
   .section { padding-top: var(--space-20); padding-bottom: var(--space-20); }
   .section-head { margin-bottom: var(--space-12); }
 
   .folder-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+  .folder-toolbar { display: none; } /* sur mobile la grille est fixée à 2 colonnes */
 
   .demo-slate {
     flex-direction: column;
@@ -776,6 +1001,9 @@ p { margin: 0 0 1em; text-wrap: pretty; }
   .folder-grid { grid-template-columns: 1fr; }
 
   .demo-caption-row { flex-direction: column; gap: var(--space-3); }
+
+  .form-card { padding: var(--space-6); }
+  .field--row { grid-template-columns: 1fr; }
 
   .site-nav a:nth-child(1) { display: none; } /* on raccourcit la nav */
 }
