@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=33" />
+  <link rel="stylesheet" href="style.css?v=35" />
 </head>
 <body>
 
@@ -38,7 +38,6 @@
       </a>
       <nav class="site-nav" aria-label="Navigation principale">
         <a href="#demonstration">Démonstration</a>
-        <a href="#videos">Visite</a>
         <a href="#demo">Contact</a>
       </nav>
     </div>
@@ -118,6 +117,7 @@
             </div>
             <div class="slate-actions">
               <button type="button" class="btn-demo is-attn" data-demeuble>Démeubler</button>
+              <button type="button" class="btn-demo btn-demo--ghost" data-remeuble hidden>Re-meubler</button>
               <button type="button" class="btn-demo is-attn" data-generate hidden>Générer la visite</button>
             </div>
           </div>
@@ -262,31 +262,6 @@
   </section>
 
   <!-- ============================================================
-       VISITE — Vidéo immersive
-       ============================================================ -->
-  <section id="videos" class="section section-alt">
-    <div class="container">
-      <div class="video-solo">
-
-        <header class="section-head">
-          <h2 class="section-title">Visite immersive</h2>
-          <p class="section-intro">
-            Une déambulation dans le bien : volumes, lumière et vue dégagée sur la Tour Eiffel — déclinée pour tous vos canaux : portails d'annonces, réseaux sociaux, présentation au vendeur.
-          </p>
-        </header>
-
-        <div class="video-frame">
-          <video controls preload="metadata" poster="assets/eiffel-visite-poster.jpg" playsinline>
-            <source src="assets/eiffel-visite.mp4" type="video/mp4" />
-            Votre navigateur ne prend pas en charge la lecture vidéo HTML5.
-          </video>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
        LA DÉMO — contact / sans engagement
        ============================================================ -->
   <section id="demo" class="section cta-section">
@@ -308,7 +283,7 @@
     <div class="container footer-inner">
 
       <div class="footer-brand">
-        <p class="footer-mark">Airmind <em>Creation</em></p>
+        <img src="assets/logo-mark.png" alt="Airmind Creation" class="footer-logo" />
         <p class="footer-tagline">Montrez votre bien. Révélez ce qu'il peut devenir.</p>
       </div>
 
@@ -338,6 +313,6 @@
     <div class="zoom-host"></div>
   </dialog>
 
-  <script src="script.js?v=21"></script>
+  <script src="script.js?v=22"></script>
 </body>
 </html>

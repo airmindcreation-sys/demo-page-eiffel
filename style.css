@@ -313,6 +313,19 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 }
 .btn-demo:disabled { opacity: 0.55; cursor: default; }
 
+/* Variante secondaire (ex. « Re-meubler ») : contour discret */
+.btn-demo--ghost {
+  background: transparent;
+  border-color: var(--color-rule);
+  color: var(--color-ink-soft);
+}
+.btn-demo--ghost:hover,
+.btn-demo--ghost:focus-visible {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #fff;
+}
+
 /* Pulsation discrète pour inviter au clic */
 .btn-demo.is-attn { animation: btn-attn 2.2s ease-in-out infinite; }
 @keyframes btn-attn {
@@ -887,20 +900,12 @@ a.cta-btn {
   align-items: start;
 }
 
-.footer-mark {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(2rem, 3.2vw, 2.75rem);
-  line-height: 1;
-  color: #EDE7D7;
-  letter-spacing: -0.01em;
+/* Logo bleu marine rendu blanc cassé sur le fond sombre du footer */
+.footer-logo {
+  height: 32px;
+  width: auto;
+  filter: brightness(0) invert(0.92);
   margin: 0 0 var(--space-8);
-}
-
-.footer-mark em {
-  font-style: italic;
-  color: var(--color-accent);
-  font-weight: 400;
 }
 
 .footer-tagline {
@@ -1037,8 +1042,6 @@ a.cta-btn {
 
   .form-card { padding: var(--space-6); }
   .field--row { grid-template-columns: 1fr; }
-
-  .site-nav a:nth-child(1) { display: none; } /* on raccourcit la nav */
 }
 
 /* -----------------------------------------------------------

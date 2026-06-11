@@ -28,6 +28,7 @@
 
   function initDemo(root) {
     const demeubleBtn = root.querySelector("[data-demeuble]");
+    const remeubleBtn = root.querySelector("[data-remeuble]");
     const generateBtn = root.querySelector("[data-generate]");
     const panelFolder = root.querySelector('[data-panel="folder"]');
     const panelPlayer = root.querySelector('[data-panel="player"]');
@@ -171,9 +172,9 @@
       if (label && progressLabel) progressLabel.textContent = label;
     }
 
-    /* Bascule des vignettes : cascade sur la page visible, les pages
-       masquées basculent instantanément. */
-    function applyDemeuble() {
+    /* Cascade sur la page visible, les pages masquées basculent
+       instantanément. */
+    function setCascadeDelays() {
       let visIdx = 0;
       tiles.forEach(function (tile) {
         const img = tile.querySelector(".tile-demeuble");
@@ -181,9 +182,14 @@
         if (tile.hidden || reduceMotion) img.style.transitionDelay = "0ms";
         else img.style.transitionDelay = visIdx++ * 90 + "ms";
       });
+    }
+
+    function applyDemeuble() {
+      setCascadeDelays();
       root.classList.add("is-demeuble");
       if (demeubleBtn) demeubleBtn.hidden = true;
-      if (generateBtn) generateBtn.hidden = false;
+      if (remeubleBtn) { remeubleBtn.hidden = false; remeubleBtn.disabled = false; }
+      if (generateBtn) { generateBtn.hidden = false; generateBtn.disabled = false; generateBtn.classList.add("is-attn"); }
       setSlate("demeuble");
       setCaption("demeuble");
     }
@@ -200,6 +206,24 @@
         setProgress(false);
         applyDemeuble();
       }, 1700);
+    }
+
+    /* Re-meubler : retour aux photos d'origine, cascade inverse,
+       sans temps de traitement (c'est une simple annulation). */
+    function remeubler() {
+      clearTimers();
+      setProgress(false);
+      setCascadeDelays();
+      root.classList.remove("is-demeuble");
+      if (remeubleBtn) remeubleBtn.hidden = true;
+      if (generateBtn) generateBtn.hidden = true;
+      if (demeubleBtn) {
+        demeubleBtn.hidden = false;
+        demeubleBtn.disabled = false;
+        demeubleBtn.classList.add("is-attn");
+      }
+      setSlate("meuble");
+      setCaption("meuble");
     }
 
     function showPlayer() {
@@ -231,32 +255,18 @@
     }
 
     function reset() {
-      clearTimers();
-      setProgress(false);
       panelPlayer.classList.remove("is-active");
       panelFolder.classList.add("is-active");
       if (resetBtn) resetBtn.hidden = true;
 
       // retour à l'étape 1 : dossier meublé (la seule source), page 1
+      remeubler();
       tiles.forEach(function (tile) {
         const img = tile.querySelector(".tile-demeuble");
         if (img) img.style.transitionDelay = "0ms";
       });
       page = 0;
       renderPage(false);
-      root.classList.remove("is-demeuble");
-      if (demeubleBtn) {
-        demeubleBtn.hidden = false;
-        demeubleBtn.disabled = false;
-        demeubleBtn.classList.add("is-attn");
-      }
-      if (generateBtn) {
-        generateBtn.hidden = true;
-        generateBtn.disabled = false;
-        generateBtn.classList.add("is-attn");
-      }
-      setSlate("meuble");
-      setCaption("meuble");
 
       if (video) {
         video.pause();
@@ -274,6 +284,7 @@
     }
 
     if (demeubleBtn) demeubleBtn.addEventListener("click", demeubler);
+    if (remeubleBtn) remeubleBtn.addEventListener("click", remeubler);
     if (generateBtn) generateBtn.addEventListener("click", generate);
     if (resetBtn) resetBtn.addEventListener("click", reset);
   }
