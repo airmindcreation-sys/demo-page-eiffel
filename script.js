@@ -1,10 +1,12 @@
 /* ============================================================
    Airmind Estate — Démo Projet Eiffel (Isambert)
-   Script principal : sliders avant/après + petits utilitaires
+   Script principal : module dossier meublé → démeubler → visite
    ============================================================ */
 
 (function () {
   "use strict";
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* -----------------------------------------------------------
      Année dynamique dans le footer
@@ -13,59 +15,183 @@
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* -----------------------------------------------------------
-     Slider de comparaison avant / après — approche clip-path
+     Module démonstration : dossier meublé → démeubler → visite
      -----------------------------------------------------------
-     Les deux images sont superposées en taille réelle (100%/100%).
-     Seul le clip-path de l'image "before" change : pas d'étirement
-     possible, alignement pixel-perfect garanti, comportement « rideau ».
+     Étape 1 : la grille montre les 21 photos meublées (seule source).
+     « Démeubler » lance un temps de traitement, puis bascule chaque
+     vignette vers son rendu démeublé, en cascade.
+     Étape 2 : « Générer la visite » simule la production, puis ouvre
+     le panneau lecteur (vidéo générée, distincte de la visite ci-dessous).
      ----------------------------------------------------------- */
-  const sliders = document.querySelectorAll("[data-comparison]");
+  const demo = document.getElementById("demo-eiffel");
+  if (demo) initDemo(demo);
 
-  sliders.forEach(function (s) {
-    initComparisonSlider(s);
-    s.__compInit = true;
-  });
+  function initDemo(root) {
+    const demeubleBtn = root.querySelector("[data-demeuble]");
+    const generateBtn = root.querySelector("[data-generate]");
+    const panelFolder = root.querySelector('[data-panel="folder"]');
+    const panelPlayer = root.querySelector('[data-panel="player"]');
+    const progress = root.querySelector("[data-progress]");
+    const progressLabel = root.querySelector("[data-progress-label]");
+    const resetBtn = root.querySelector("[data-reset]");
+    const caption = root.querySelector("[data-caption]");
+    const slateLabel = root.querySelector("[data-slate-label]");
+    const grid = root.querySelector("[data-folder-grid]");
+    const tiles = grid ? Array.from(grid.querySelectorAll(".folder-tile")) : [];
+    const video = root.querySelector("[data-gen-video]");
+    const playerFrame = root.querySelector(".demo-player-frame");
 
-  /* Auto-init des sliders ajoutés dynamiquement (ex. cloné dans la lightbox). */
-  if (window.MutationObserver) {
-    const obs = new MutationObserver(function (mutations) {
-      mutations.forEach(function (m) {
-        m.addedNodes.forEach(function (node) {
-          if (node.nodeType !== 1) return;
-          const items = node.matches && node.matches("[data-comparison]")
-            ? [node]
-            : (node.querySelectorAll ? Array.from(node.querySelectorAll("[data-comparison]")) : []);
-          items.forEach(function (s) {
-            if (!s.__compInit) {
-              initComparisonSlider(s);
-              s.__compInit = true;
-            }
-          });
-        });
+    const GENERATE_PHASES = [
+      "Analyse des volumes…",
+      "Composition des trajectoires de caméra…",
+      "Montage de la visite…",
+    ];
+
+    let timers = [];
+    function clearTimers() {
+      timers.forEach(clearTimeout);
+      timers = [];
+    }
+    function later(fn, ms) {
+      timers.push(setTimeout(fn, ms));
+    }
+
+    function setCaption(key) {
+      if (!caption) return;
+      const v = caption.getAttribute("data-cap-" + key);
+      if (v != null) caption.textContent = v;
+    }
+    function setSlate(key) {
+      if (!slateLabel) return;
+      const v = slateLabel.getAttribute("data-label-" + key);
+      if (v != null) slateLabel.textContent = v;
+    }
+    function setProgress(on, label) {
+      if (!progress) return;
+      progress.classList.toggle("is-on", on);
+      if (label && progressLabel) progressLabel.textContent = label;
+    }
+
+    /* Bascule des vignettes : cascade gauche→droite, ligne par ligne. */
+    function applyDemeuble() {
+      tiles.forEach(function (tile, i) {
+        const img = tile.querySelector(".tile-demeuble");
+        if (img) img.style.transitionDelay = reduceMotion ? "0ms" : i * 55 + "ms";
       });
-    });
-    obs.observe(document.body, { childList: true, subtree: true });
+      root.classList.add("is-demeuble");
+      if (demeubleBtn) demeubleBtn.hidden = true;
+      if (generateBtn) generateBtn.hidden = false;
+      setSlate("demeuble");
+      setCaption("demeuble");
+    }
+
+    function demeubler() {
+      if (reduceMotion) {
+        applyDemeuble();
+        return;
+      }
+      demeubleBtn.disabled = true;
+      demeubleBtn.classList.remove("is-attn");
+      setProgress(true, "Démeublement en cours…");
+      later(function () {
+        setProgress(false);
+        applyDemeuble();
+      }, 1700);
+    }
+
+    function showPlayer() {
+      panelFolder.classList.remove("is-active");
+      panelPlayer.classList.add("is-active");
+      if (resetBtn) resetBtn.hidden = false;
+      setCaption("video");
+      if (video && playerFrame && playerFrame.classList.contains("has-video")) {
+        try { video.currentTime = 0; } catch (e) { /* no-op */ }
+        const p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+    }
+
+    function generate() {
+      if (reduceMotion) {
+        showPlayer();
+        return;
+      }
+      generateBtn.disabled = true;
+      generateBtn.classList.remove("is-attn");
+      setProgress(true, GENERATE_PHASES[0]);
+      later(function () { setProgress(true, GENERATE_PHASES[1]); }, 850);
+      later(function () { setProgress(true, GENERATE_PHASES[2]); }, 1700);
+      later(function () {
+        setProgress(false);
+        showPlayer();
+      }, 2500);
+    }
+
+    function reset() {
+      clearTimers();
+      setProgress(false);
+      panelPlayer.classList.remove("is-active");
+      panelFolder.classList.add("is-active");
+      if (resetBtn) resetBtn.hidden = true;
+
+      // retour à l'étape 1 : dossier meublé (la seule source)
+      tiles.forEach(function (tile) {
+        const img = tile.querySelector(".tile-demeuble");
+        if (img) img.style.transitionDelay = "0ms";
+      });
+      root.classList.remove("is-demeuble");
+      if (demeubleBtn) {
+        demeubleBtn.hidden = false;
+        demeubleBtn.disabled = false;
+        demeubleBtn.classList.add("is-attn");
+      }
+      if (generateBtn) {
+        generateBtn.hidden = true;
+        generateBtn.disabled = false;
+        generateBtn.classList.add("is-attn");
+      }
+      setSlate("meuble");
+      setCaption("meuble");
+
+      if (video) {
+        video.pause();
+        try { video.currentTime = 0; } catch (e) { /* no-op */ }
+      }
+    }
+
+    /* Vidéo générée : le placeholder reste affiché tant que la vidéo
+       du module n'est pas présente / lisible. */
+    if (video && playerFrame) {
+      video.addEventListener("loadedmetadata", function () {
+        playerFrame.classList.add("has-video");
+      });
+      if (video.readyState >= 1) playerFrame.classList.add("has-video");
+    }
+
+    if (demeubleBtn) demeubleBtn.addEventListener("click", demeubler);
+    if (generateBtn) generateBtn.addEventListener("click", generate);
+    if (resetBtn) resetBtn.addEventListener("click", reset);
   }
 
   /* -----------------------------------------------------------
-     Lightbox d'agrandissement de slider
-     -----------------------------------------------------------
-     Clone le <article class="room"> cliqué dans le <dialog>.
-     Le MutationObserver ci-dessus init automatiquement le slider cloné.
-     Fermeture : bouton ×, touche Esc (native <dialog>), ou clic backdrop.
+     Lightbox : clic sur une vignette → photo agrandie
+     (montre l'état courant : meublé ou démeublé)
      ----------------------------------------------------------- */
   const zoomDialog = document.getElementById("zoom-dialog");
   if (zoomDialog) {
     const host = zoomDialog.querySelector(".zoom-host");
 
-    function openZoom(roomEl) {
-      if (!host || !roomEl) return;
-      const clone = roomEl.cloneNode(true);
-      // Pas de bouton agrandir dans la version agrandie
-      const innerExpand = clone.querySelector(".room-expand");
-      if (innerExpand) innerExpand.remove();
+    function openZoom(tile) {
+      if (!host || !tile) return;
+      const isDemeuble = demo && demo.classList.contains("is-demeuble");
+      const src = tile.querySelector(isDemeuble ? ".tile-demeuble" : ".tile-meuble");
+      if (!src) return;
+      const img = document.createElement("img");
+      img.src = src.src;
+      img.alt = src.alt;
+      img.className = "zoom-img";
       host.innerHTML = "";
-      host.appendChild(clone);
+      host.appendChild(img);
       if (typeof zoomDialog.showModal === "function") {
         zoomDialog.showModal();
       } else {
@@ -74,10 +200,9 @@
     }
 
     document.addEventListener("click", function (e) {
-      const expandBtn = e.target.closest && e.target.closest(".room-expand");
-      if (expandBtn) {
-        e.preventDefault();
-        openZoom(expandBtn.closest(".room"));
+      const tile = e.target.closest && e.target.closest(".folder-tile");
+      if (tile) {
+        openZoom(tile);
         return;
       }
       const closeBtn = e.target.closest && e.target.closest(".zoom-close");
@@ -96,162 +221,16 @@
     });
   }
 
-  function initComparisonSlider(slider) {
-    const handle = slider.querySelector(".slider-handle");
-    const imgBefore = slider.querySelector(".img-before");
-
-    if (!handle || !imgBefore) return;
-
-    /* Le bouton « agrandir » est superposé à l'intérieur du slider :
-       on empêche son pointerdown de déclencher un drag. Le clic, lui,
-       continue de remonter jusqu'au handler délégué qui ouvre le zoom. */
-    const expandBtn = slider.querySelector(".room-expand");
-    if (expandBtn) {
-      ["pointerdown", "mousedown", "touchstart"].forEach(function (ev) {
-        expandBtn.addEventListener(ev, function (e) { e.stopPropagation(); });
-      });
-    }
-
-    let dragging = false;
-    let rect = null;
-
-    /** Met à jour la position en % (0–100).
-     *  Les deux images restent à 100% de largeur, fixes et alignées.
-     *  Seul le clip-path de l'image "before" change pour révéler l'image "after". */
-    function setPosition(percent) {
-      const p = Math.max(0, Math.min(100, percent));
-      imgBefore.style.clipPath = "inset(0 " + (100 - p) + "% 0 0)";
-      handle.style.left = p + "%";
-      handle.setAttribute("aria-valuenow", String(Math.round(p)));
-    }
-
-    /** Convertit une position clientX en pourcentage relatif au conteneur. */
-    function clientXToPercent(clientX) {
-      if (!rect) rect = slider.getBoundingClientRect();
-      return ((clientX - rect.left) / rect.width) * 100;
-    }
-
-    /* -------- Pointer events (souris + tactile via Pointer Events) -------- */
-
-    function onPointerDown(e) {
-      dragging = true;
-      rect = slider.getBoundingClientRect();
-      slider.classList.add("is-dragging");
-      // Capture du pointeur pour suivre le drag même hors de l'élément
-      if (e.pointerId !== undefined && handle.setPointerCapture) {
-        try { handle.setPointerCapture(e.pointerId); } catch (_) { /* no-op */ }
-      }
-      setPosition(clientXToPercent(e.clientX));
-      e.preventDefault();
-    }
-
-    function onPointerMove(e) {
-      if (!dragging) return;
-      setPosition(clientXToPercent(e.clientX));
-    }
-
-    function onPointerUp() {
-      if (!dragging) return;
-      dragging = false;
-      slider.classList.remove("is-dragging");
-    }
-
-    // Si Pointer Events est supporté, on l'utilise (gère souris, tactile, stylet)
-    if (window.PointerEvent) {
-      handle.addEventListener("pointerdown", onPointerDown);
-      slider.addEventListener("pointerdown", onPointerDown);
-      window.addEventListener("pointermove", onPointerMove);
-      window.addEventListener("pointerup", onPointerUp);
-      window.addEventListener("pointercancel", onPointerUp);
-    } else {
-      /* -------- Fallback : mouse + touch séparés -------- */
-      handle.addEventListener("mousedown", function (e) {
-        dragging = true;
-        rect = slider.getBoundingClientRect();
-        slider.classList.add("is-dragging");
-        setPosition(clientXToPercent(e.clientX));
-        e.preventDefault();
-      });
-      slider.addEventListener("mousedown", function (e) {
-        dragging = true;
-        rect = slider.getBoundingClientRect();
-        slider.classList.add("is-dragging");
-        setPosition(clientXToPercent(e.clientX));
-      });
-      window.addEventListener("mousemove", function (e) {
-        if (!dragging) return;
-        setPosition(clientXToPercent(e.clientX));
-      });
-      window.addEventListener("mouseup", function () {
-        dragging = false;
-        slider.classList.remove("is-dragging");
-      });
-
-      // Touch
-      const touchStart = function (e) {
-        const t = e.touches[0];
-        if (!t) return;
-        dragging = true;
-        rect = slider.getBoundingClientRect();
-        slider.classList.add("is-dragging");
-        setPosition(clientXToPercent(t.clientX));
-      };
-      const touchMove = function (e) {
-        if (!dragging) return;
-        const t = e.touches[0];
-        if (!t) return;
-        setPosition(clientXToPercent(t.clientX));
-        e.preventDefault();
-      };
-      const touchEnd = function () {
-        dragging = false;
-        slider.classList.remove("is-dragging");
-      };
-
-      handle.addEventListener("touchstart", touchStart, { passive: true });
-      slider.addEventListener("touchstart", touchStart, { passive: true });
-      window.addEventListener("touchmove", touchMove, { passive: false });
-      window.addEventListener("touchend", touchEnd);
-      window.addEventListener("touchcancel", touchEnd);
-    }
-
-    /* -------- Accessibilité : flèches clavier -------- */
-    handle.addEventListener("keydown", function (e) {
-      const current = parseFloat(handle.getAttribute("aria-valuenow") || "50");
-      let next = current;
-      const step = e.shiftKey ? 10 : 2;
-
-      if (e.key === "ArrowLeft" || e.key === "ArrowDown") next = current - step;
-      else if (e.key === "ArrowRight" || e.key === "ArrowUp") next = current + step;
-      else if (e.key === "Home") next = 0;
-      else if (e.key === "End") next = 100;
-      else return;
-
-      rect = slider.getBoundingClientRect();
-      setPosition(next);
-      e.preventDefault();
-    });
-
-    /* -------- Recalcul du rect au resize (pour le drag) -------- */
-    window.addEventListener("resize", function () {
-      rect = slider.getBoundingClientRect();
-    });
-
-    /* -------- Initialisation à 50% -------- */
-    rect = slider.getBoundingClientRect();
-    setPosition(50);
-  }
-
   /* -----------------------------------------------------------
-     Vidéos : si un <source> est présent, masquer le placeholder
+     Vidéos statiques : si un <source> est présent, masquer le
+     placeholder (hors lecteur du module, géré par loadedmetadata)
      ----------------------------------------------------------- */
-  document.querySelectorAll(".video-frame").forEach(function (frame) {
+  document.querySelectorAll(".video-frame:not(.demo-player-frame)").forEach(function (frame) {
     const video = frame.querySelector("video");
     if (!video) return;
     const hasSource = video.querySelector("source[src]");
     if (hasSource) frame.classList.add("has-video");
   });
-
 
   /* -----------------------------------------------------------
      Smooth scroll explicite pour la nav (au cas où le navigateur
