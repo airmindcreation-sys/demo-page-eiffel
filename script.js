@@ -96,11 +96,19 @@
       renderPage(true);
     }
 
+    /* Sur téléphone la grille est fixée à 2 colonnes (CSS) : pages de
+       4 photos, navigation au swipe. Le curseur ne joue que sur desktop. */
+    const mqMobile = window.matchMedia("(max-width: 880px)");
+
     function applySize() {
-      // curseur à droite (5) = 3 colonnes ; à gauche (1) = 7 colonnes
-      const cols = 8 - (sizeRange ? Number(sizeRange.value) : 5);
-      if (grid) grid.style.setProperty("--cols", cols);
-      pageSize = cols >= 7 ? tiles.length : cols * 2;
+      if (mqMobile.matches) {
+        pageSize = 6; // 2 colonnes × 3 rangées : 4 pages régulières
+      } else {
+        // curseur à droite (5) = 3 colonnes ; à gauche (1) = 7 colonnes
+        const cols = 8 - (sizeRange ? Number(sizeRange.value) : 5);
+        if (grid) grid.style.setProperty("--cols", cols);
+        pageSize = cols >= 7 ? tiles.length : cols * 2;
+      }
       buildPager();
       renderPage(true);
     }
@@ -108,7 +116,28 @@
     if (pagePrev) pagePrev.addEventListener("click", function () { goToPage(page - 1); });
     if (pageNext) pageNext.addEventListener("click", function () { goToPage(page + 1); });
     if (sizeRange) sizeRange.addEventListener("input", applySize);
-    buildPager();
+    if (mqMobile.addEventListener) mqMobile.addEventListener("change", applySize);
+
+    /* Swipe gauche/droite pour tourner l'album (tactile) */
+    const reel = root.querySelector(".folder-reel");
+    if (reel) {
+      let touchX = null, touchY = null;
+      reel.addEventListener("touchstart", function (e) {
+        touchX = e.touches[0].clientX;
+        touchY = e.touches[0].clientY;
+      }, { passive: true });
+      reel.addEventListener("touchend", function (e) {
+        if (touchX == null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        const dy = e.changedTouches[0].clientY - touchY;
+        touchX = null;
+        if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+          goToPage(page + (dx < 0 ? 1 : -1));
+        }
+      }, { passive: true });
+    }
+
+    applySize();
     renderPage(false);
 
     const GENERATE_PHASES = [

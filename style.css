@@ -966,14 +966,45 @@ a.cta-btn {
   .section { padding-top: var(--space-20); padding-bottom: var(--space-20); }
   .section-head { margin-bottom: var(--space-12); }
 
+  /* Module : grille fixée à 2 colonnes, pages de 4 photos (géré en JS),
+     navigation au swipe + flèches compactes posées sur les bords. */
   .folder-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
-  .folder-toolbar { display: none; } /* sur mobile la grille est fixée à 2 colonnes */
+  .folder-toolbar { display: none; }
+
+  .folder-arrow {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.92);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .folder-arrow-prev { left: 8px; }
+  .folder-arrow-next { right: 8px; }
+
+  .folder-pager { gap: 14px; margin-top: var(--space-4); }
+  .pager-dot { width: 10px; height: 10px; }
 
   .demo-slate {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: var(--space-4);
+    padding: var(--space-4);
   }
+  .slate-label { font-size: 0.75rem; letter-spacing: 0.06em; }
+  .slate-actions { width: 100%; }
+  .slate-actions .btn-demo {
+    flex: 1;
+    padding: 0.9em 1em;
+    font-size: 0.8125rem;
+  }
+
+  .demo-progress {
+    white-space: normal;
+    text-align: center;
+    max-width: calc(100% - var(--space-8));
+  }
+
+  .demo-reset { padding: 0.8em 1.4em; }
 
   .video-grid { grid-template-columns: 1fr; gap: var(--space-16); }
 
@@ -998,9 +1029,11 @@ a.cta-btn {
 
   .hero-title { font-size: clamp(1.6rem, 6.5vw, 2.1rem); }
 
-  .folder-grid { grid-template-columns: 1fr; }
+  /* On garde 2 colonnes même sur petit écran : l'album reste un album */
+  .slate-mark { display: none; }
 
   .demo-caption-row { flex-direction: column; gap: var(--space-3); }
+  .demo-caption { font-size: 0.875rem; }
 
   .form-card { padding: var(--space-6); }
   .field--row { grid-template-columns: 1fr; }
